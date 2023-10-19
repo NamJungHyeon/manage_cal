@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>만 나이 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="date"] {
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>만 나이 계산기</h1>
+    <label for="birthdate">생년월일 (예: 1990-01-01): </label>
+    <input type="text" id="birthdate" placeholder="YYYY-MM-DD" required>
+    <button onclick="calculateAge()">계산</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateAge() {
+            const birthdateStr = document.getElementById("birthdate").value;
+            const birthdate = new Date(birthdateStr + "T00:00:00"); // 시간 정보를 추가하여 오류 방지
+            if (!isNaN(birthdate)) {
+                const today = new Date();
+                const age = today.getFullYear() - birthdate.getFullYear() - 1;
+                if (
+                    today.getMonth() > birthdate.getMonth() ||
+                    (today.getMonth() === birthdate.getMonth() && today.getDate() >= birthdate.getDate())
+                ) {
+                    age++;
+                }
+                document.getElementById("result").textContent = "만 나이: " + age + "세";
+            } else {
+                document.getElementById("result").textContent = "올바른 날짜 형식을 입력하세요 (YYYY-MM-DD).";
+            }
+        }
+    </script>
+</body>
+</html>
